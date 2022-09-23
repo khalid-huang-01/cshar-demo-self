@@ -1,0 +1,2 @@
+obj\Debug\netcoreapp3.1/AuxproxyGrpcService.cs \
+obj\Debug\netcoreapp3.1/AuxproxyGrpcServiceGrpc.cs: ../proto/csharp-demo/AuxproxyGrpcService.proto

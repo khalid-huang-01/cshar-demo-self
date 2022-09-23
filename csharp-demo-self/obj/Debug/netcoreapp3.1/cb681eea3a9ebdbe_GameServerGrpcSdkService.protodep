@@ -1,0 +1,3 @@
+obj\Debug\netcoreapp3.1/GameServerGrpcSdkService.cs \
+obj\Debug\netcoreapp3.1/GameServerGrpcSdkServiceGrpc.cs: ../proto/csharp-demo/GseGrpcSdkService.proto\
+ ../proto/csharp-demo/GameServerGrpcSdkService.proto

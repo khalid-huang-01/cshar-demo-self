@@ -1,0 +1,2 @@
+obj\Debug\netcoreapp3.1/GseGrpcSdkService.cs \
+obj\Debug\netcoreapp3.1/GseGrpcSdkServiceGrpc.cs: ../proto/csharp-demo/GseGrpcSdkService.proto

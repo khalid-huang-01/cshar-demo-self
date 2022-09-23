@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+package tencentcloud.gse.grpcsdk;
+option go_package = "go-demo/grpcsdk";
+
+// 游戏进程ProcessReady 调用
+message ProcessReadyRequest {
+    repeated string logPathsToUpload = 1;
+    int32 clientPort = 2;
+    int32 grpcPort = 3;
+}
+
+// 游戏进程在收到GSE的启动游戏会话后需要调用
+message ActivateGameServerSessionRequest{
+    string gameServerSessionId = 1;
+    int32 maxPlayers = 2;
+}
+
+// 游戏进程在玩家加入后调用
+message AcceptPlayerSessionRequest {
+    string gameServerSessionId = 1;
+    string playerSessionId = 2;
+}
+
+// 游戏进程在玩家移除后调用
+message RemovePlayerSessionRequest {
+    string gameServerSessionId = 1;
+    string playerSessionId = 2;
+}
+
+// 玩家信息
+message PlayerSession {
+   string playerSessionId = 1;
+   string playerId = 2;
+   string gameServerSessionId = 3;
+   string fleetId = 4;
+   string ipAddress = 5;
+   string status = 6;
+   int64 creationTime = 7;
+   int64 terminationTime = 8;
+   int32 port = 9;
+   string playerData = 10;
+   string dnsName = 11;
+}
+
+// 游戏进程获取玩家信息
+message DescribePlayerSessionsRequest {
+   string gameServerSessionId = 1;
+   string playerId = 2;
+   string playerSessionId = 3;
+   string playerSessionStatusFilter = 4;
+   string nextToken = 5;
+   int32 limit = 6 ;
+}
+
+message DescribePlayerSessionsResponse {
+   string nextToken = 1;
+   repeated PlayerSession playerSessions = 2;
+}
+
+// 游戏进程更新玩家加入策略
+message UpdatePlayerSessionCreationPolicyRequest {
+   string gameServerSessionId = 1;
+   string newPlayerSessionCreationPolicy = 2;
+}
+
+// 游戏进程在结束游戏会话后调用
+message TerminateGameServerSessionRequest {
+    string gameServerSessionId = 1;
+}
+
+// 游戏进程在退出时调用
+message ProcessEndingRequest {
+
+}
+
+// 上报自定义数据
+message ReportCustomDataRequest {
+    int32 currentCustomCount = 1 ;
+    int32 maxCustomCount = 2;
+}
+
+// 返回结果，成功与否看rpc错误码
+message GseResponse {
+
+}
+
+service GseGrpcSdkService {
+    // 上报游戏进程已经就绪
+    rpc ProcessReady (ProcessReadyRequest) returns (GseResponse) {}
+
+    // 激活游戏会话
+    rpc ActivateGameServerSession(ActivateGameServerSessionRequest) returns (GseResponse) {}
+
+    // 玩家加入
+    rpc AcceptPlayerSession(AcceptPlayerSessionRequest) returns (GseResponse) {}
+
+    // 玩家移除
+    rpc RemovePlayerSession(RemovePlayerSessionRequest) returns (GseResponse) {}
+
+    // 获取玩家信息
+    rpc DescribePlayerSessions(DescribePlayerSessionsRequest) returns (DescribePlayerSessionsResponse) {}
+
+    // 更新玩家加入策略
+    rpc UpdatePlayerSessionCreationPolicy(UpdatePlayerSessionCreationPolicyRequest) returns (GseResponse) {}
+
+    // 结束游戏会话
+    rpc TerminateGameServerSession(TerminateGameServerSessionRequest) returns (GseResponse) {}
+
+    // 结束进程
+    rpc ProcessEnding(ProcessEndingRequest) returns (GseResponse) {}
+
+    // 上报自定义数据
+    rpc ReportCustomData(ReportCustomDataRequest) returns (GseResponse) {}
+}

@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package tencentcloud.gse.grpcsdk;
+option go_package = "go-demo/grpcsdk";
+
+import "GseGrpcSdkService.proto";
+
+// 定时拉取游戏进程健康检查
+message HealthCheckRequest {
+
+}
+
+message HealthCheckResponse {
+    bool healthStatus = 1;
+}
+
+// 游戏属性详情
+message GameProperty {
+    // 属性名称（键）
+    string key = 1;
+    // 属性值（值）
+    string value = 2;
+}
+
+// game server session
+message GameServerSession {
+    string gameServerSessionId = 1;
+    string fleetId = 2;
+    string name = 3;
+    int32 maxPlayers = 4;
+    bool joinable = 5;
+    repeated GameProperty gameProperties = 6;
+    int32 port = 7;
+    string ipAddress = 8;
+    string gameServerSessionData = 9;
+    string matchmakerData = 10;
+    string dnsName = 11;
+}
+
+// 分配gameserversession到游戏进程
+message StartGameServerSessionRequest {
+    GameServerSession gameServerSession = 1;
+}
+
+// 结束游戏进程
+message ProcessTerminateRequest {
+    int64 terminationTime = 1;
+}
+
+service GameServerGrpcSdkService {
+    // 接收健康检查请求
+    rpc OnHealthCheck (HealthCheckRequest) returns (HealthCheckResponse) {}
+
+    // 接收游戏会话
+    rpc OnStartGameServerSession(StartGameServerSessionRequest) returns (GseResponse) {}
+
+    // 结束游戏进程
+    rpc OnProcessTerminate(ProcessTerminateRequest) returns (GseResponse) {}
+}

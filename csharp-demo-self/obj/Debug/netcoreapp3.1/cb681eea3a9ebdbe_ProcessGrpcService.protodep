@@ -1,0 +1,2 @@
+obj\Debug\netcoreapp3.1/ProcessGrpcService.cs \
+obj\Debug\netcoreapp3.1/ProcessGrpcServiceGrpc.cs: ../proto/csharp-demo/ProcessGrpcService.proto
