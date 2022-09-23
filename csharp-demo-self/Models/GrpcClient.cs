@@ -7,7 +7,7 @@ namespace CSharpDemo.Models
 {
     public class GrpcClient
     {
-        private static string agentAdress = "127.0.0.1:5758";
+        private static string agentAdress = "127.0.0.1:60002";
 
         public static ProcessGrpcSdkService.ProcessGrpcSdkServiceClient ProcessServerClient
         {

@@ -66,6 +66,7 @@ namespace CSharpDemo.Models
             var req = new ProcessReadyRequest{
                 ClientPort = clientPort,
                 GrpcPort = grpcPort,
+                Pid = Process.GetCurrentProcess().Id,
             };
             req.LogPathsToUpload.Add(logPath);         //repeated类型解析pb后，是只读类型，需要Add加入           
             return GrpcClient.ScaseClient.ProcessReady(req, meta);
